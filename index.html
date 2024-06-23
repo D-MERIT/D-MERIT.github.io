@@ -156,9 +156,9 @@
                 <a href="https://github.com/Litalby1/make-it-count"
                    class="external-link button is-normal is-rounded is-dark">
                   <span class="icon">
-                      <i class="fab fa-github"></i>
+                      <i class="fas fa-database"></i>
                   </span>
-                  <span>Code</span>
+                  <span>Data (soon)</span>
                   </a>
               </span>
             </div>
@@ -333,7 +333,7 @@
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
-        <h2 class="title is-3 title-centered">Examples from in D-MERIT</h2>
+        <h2 class="title is-3 title-centered">Examples from D-MERIT</h2>
         <div class="hero-body">
           <div class="columns">
             <div class="column">
@@ -635,15 +635,72 @@
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3 title-centered">Findings of Partial-annotation Study</h2>
+        <!-- <p>TLDR;</p> -->
         <div class="hero-body">
-          <img src="./static/d-merit_images/task_figure.png" alt="Findings of Partial-annotation Study" class="image-half-width">
-            <p class="content-centered">
-            We experiment to examine the widespread practice of considering only a single evidence per query, and explore whether rankings stabilize as false negatives decrease when adding more labeled evidence. We use 12 retrieval systems to </p>
+          <div class="content-centered">
+            <h3 class="title is-4">Is the single-relevant setup reliable?</h3>
+            <p>
+              We assume a single annotation setup, and find that sampling random evidence <em>does</em> lead to reliable results, but such approach is not feasible in scale. To depict a realistic scenario, we also explore 4 other sampling approaches: popular, shortest, longest passage, and system-based (think TREC). For these, the error rate is much higher, which significantly affects the ranking of the models, and illustrates that in such cases, the single-relevant setting is unreliable. 
+            </p>
+            <table style="margin: auto; border-collapse: collapse; width: 100%;">
+              <thead>
+                <tr>
+                  <th style="border-bottom: 1px solid #000; padding: 8px;">Selection</th>
+                  <th style="border-bottom: 1px solid #000; padding: 8px;">Tau-similarity</th>
+                  <th style="border-bottom: 1px solid #000; padding: 8px;">Error-rate (%)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: left;">Random</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;"><strong>0.936</strong></td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;"><strong>3.20</strong></td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: left;">Most popular</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">0.696</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">15.10</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: left;">Longest</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">0.545</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">22.75</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: left;">Shortest</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">0.696</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">15.10</td>
+                </tr>
+                <tr>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: left;">System-based</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">0.616</td>
+                  <td style="border-bottom: 1px solid #ccc; padding: 8px; text-align: center;">19.20</td>
+                </tr>
+              </tbody>
+              <caption style="caption-side: bottom; padding: 8px; font-weight: bold;">Kendall-Tau similarities and error-rate for the different sampling approaches in a single-annotation setup.</caption>
+            </table>
+          
+            <h3 class="title is-4">Do rankings stabilize as false negatives decrease?</h3>
+            <p>
+              We evaluate 12 systems by increasing annotations in increments of 10%, and find that if the difference in performance between a pair of systems is large, around 20% of the annotations we collected suffice to obtain the correct ranking of systems. However, if the systems are close in performance, almost all annotations are needed.
+            </p>
+            <figure>
+              <img src="./static/d-merit_images/fig3.png" alt="Partial Kendall-Tau evidence" class="image-half-width">
+              <figcaption>Partial-Kendall-τ between rankings of systems with k percent annotations and ranking with all evidence, using recall@20. System pairs are divided into 3 buckets as described in Section 3.3.</figcaption>
+            </figure>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </section>
+
+
+
+
+  
+
+
 
 <footer class="footer">
     <div class="columns is-centered">
